@@ -3,16 +3,36 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Welcome to Astro.">
-  <main class="min-h-screen flex flex-col justify-center max-w-md gap-4">
-    <h1 class="text-4xl font-medium">From fun to pro.</h1>
-    <h3>
+  <main class="min-h-screen flex flex-col justify-center max-w-lg gap-4">
+    <h1 class="text-6xl font-bold text-[#29565F]">From fun to pro.</h1>
+    <h3 class="text-[#29565F] font-medium">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias sint
       laboriosam inventore odit quibusdam doloribus sequi adipisci libero, optio
       veritatis?
     </h3>
+    <div class="flex gap-4 font-medium mt-4">
+      <button
+        class="bg-[#29565F] px-4 py-2 rounded-full text-white hover:opacity-80 max-w-max"
+        >Reservar</button
+      >
+      <button
+        class="bg-transparent px-4 py-2 rounded-full text-[#29565F] hover:opacity-80 max-w-max border-2 border-[#29565F]"
+        >Sobre Nós</button
+      >
+    </div>
 
     <img class="bg-img" src="/Background.png" alt="" />
   </main>
+
+  <section class="grid grid-cols-12 grid-rows-2">
+    <h1 class="text-4xl font-bold text-[#29565F] max-w">Os Nossos Clientes</h1>
+    <div class="col-start-1 col-end-5 ">
+      <img class="w-full h-full" src="/Clara.png" alt="">
+    </div>
+    <div class="bg-blue-600 col-start-5 col-end-12">sdm,gskjdgh</div>
+    <div class="bg-red-600 col-start-1 col-end-7 "></div>
+    <div class="bg-blue-600 col-start-7 col-end-12 "></div>
+  </section>
 </Layout>
 <style>
   .bg-img {
@@ -23,5 +43,6 @@ import Layout from "../layouts/Layout.astro";
     max-height: 100vh;
     width: 100vw;
     object-fit: cover;
+    border-bottom: 1px solid #29565f;
   }
 </style>
