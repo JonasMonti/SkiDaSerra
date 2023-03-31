@@ -1,139 +1,80 @@
 ---
+import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Welcome to Astro.">
-  <main class="min-h-screen flex flex-col justify-center max-w-lg gap-4">
-    <h1 class="text-6xl font-bold text-[#29565F]">From fun to pro.</h1>
-    <h3 class="text-[#29565F] font-medium">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias sint
-      laboriosam inventore odit quibusdam doloribus sequi adipisci libero, optio
-      veritatis?
+<Layout title="Ski da Serra">
+  <main class="min-h-screen flex flex-col justify-center max-w-xl gap-4">
+    <h1 class="text-6xl -mt-20 font-bold text-primary">From fun to pro.</h1>
+    <h3 class="text-primary font-medium text-lg">
+      Descubra a emoção do <i>ski</i> na Serra da Estrela: Aprenda com os melhores
+      instrutores na nossa escola de esqui de renome.
     </h3>
     <div class="flex gap-4 font-medium mt-4">
-      <button
-        class="bg-[#29565F] px-4 py-2 rounded-full text-white hover:opacity-80 max-w-max"
-        >Reservar</button
-      >
-      <button
-        class="bg-transparent px-4 py-2 rounded-full text-[#29565F] hover:opacity-80 max-w-max border-2 border-[#29565F]"
-        >Sobre Nós</button
-      >
+      <a href="/reservar"><Button>Reservar</Button></a>
+      <a href="/sobre-nos"><Button type="secondary">Sobre Nós</Button></a>
     </div>
 
-    <img class="bg-img" src="/Background.png" alt="" />
+    <!-- Não incluir alt text para imagens decorativas -->
+    <img
+      class="min-h-screen absolute top-0 left-0 -z-10 max-h-screen w-screen object-cover border-b border-primary"
+      src="/Background.png"
+      alt=""
+    />
   </main>
   <section class="mx-4">
-    <h1 class="text-5xl font-bold text-[#29565F] px-4">Os nossos clientes</h1>
+    <h1 class="text-5xl font-bold text-primary px-4">Os nossos clientes</h1>
     <div class="grid grid-cols-12 grid-rows-2 mt-12 h-min">
-      <div class="col-start-1 col-end-5 relative h-96">
-        <img
-          class="w-full h-full absolute object-fill"
-          src="/Clara.png"
-          alt=""
-        />
+      <div class="col-start-1 col-end-5 relative h-full">
+        <img class="w-full h-full object-cover" src="/Clara.png" alt="" />
       </div>
-      <div class="col-start-5 col-end-12 relative h-30">
-        <img
-          class="w-min h-full absolute object-cover"
-          src="/Gustavo.png"
-          alt=""
-        />
+      <div class="col-start-5 col-end-12 relative h-30 w-90">
+        <img class="w-full h-full object-cover" src="/Gustavo.png" alt="" />
       </div>
       <div class="col-start-1 col-end-7 relative h-30">
-        <img
-          class="w-full h-full absolute object-cover "
-          src="/Ana.png"
-          alt=""
-        />
+        <img class="w-full h-full object-cover" src="/Ana.png" alt="" />
       </div>
       <div class="col-start-7 col-end-12 relative h-96">
-        <img
-          class="w-full h-full absolute object-cover"
-          src="/Pedro.png"
-          alt=""
-        />
+        <img class="w-full h-full object-cover" src="/Pedro.png" alt="" />
       </div>
-    </div class="border-b-1 border-[#29565F]">
+    </div>
+    <div class="border-b border-primary w-screen absolute left-0 overflow-clip"></div>
   </section>
   <section class="mx-4">
-    <h1 class="text-5xl font-bold text-[#29565F] px-4">Preços</h1>
-    <div class="grid grid-cols-12 grid-rows-2 mt-12 h-min">
-      <div class="col-start-1 col-end-5 relative h-96">
-        <img
-          class="w-full h-full absolute object-fill"
-          src="/Clara.png"
-          alt=""
-        />
+    <h1 class="text-5xl font-bold text-primary px-4">Preços</h1>
+    <div class="flex flex-col md:flex-row gap-4 mt-24 items-end">
+      <div
+        class="h-[calc(100vh-14rem)] border-2 border-primary bg-[#EFEFEF] rounded-3xl w-full py-4"
+      >
       </div>
-      <div class="col-start-5 col-end-12 relative h-30">
-        <img
-          class="w-min h-full absolute object-cover"
-          src="/Gustavo.png"
-          alt=""
-        />
+      <div
+        class="border-2 border-primary bg-[#EFEFEF] rounded-3xl w-full text-center overflow-clip"
+      >
+        <div
+          class="h-16 font-medium bg-primary flex items-center justify-center text-white text-xl"
+        >
+          <h3>Melhor Oferta</h3>
+        </div>
+        <div class="py-20">
+          <h1 class="text-4xl font-bold text-primary px-4">Aulas +</h1>
+          <h1 class="text-4xl font-bold text-primary px-4">Alojamento +</h1>
+          <h1 class="text-4xl font-bold text-primary px-4">Seguro</h1>
+          <h1 class="text-6xl font-bold text-primary py-16">
+            60
+            <span class="text-3xl -ml-4">€</span>
+          </h1>
+          <a href="/reservar"><Button>Reservar</Button></a>
+        </div>
       </div>
-      <div class="col-start-1 col-end-7 relative h-30">
-        <img
-          class="w-full h-full absolute object-cover "
-          src="/Ana.png"
-          alt=""
-        />
-      </div>
-      <div class="col-start-7 col-end-12 relative h-96">
-        <img
-          class="w-full h-full absolute object-cover"
-          src="/Pedro.png"
-          alt=""
-        />
-      </div>
-    </div class="border-b-1 border-[#29565F]">
+      <div
+        class="h-[calc(100vh-14rem)] border-2 border-primary bg-[#EFEFEF] rounded-3xl w-full py-4"
+      >
+        </div>
+    </div>
   </section>
   <section class="mx-4">
-    <h1 class="text-5xl font-bold text-[#29565F] px-4">Galeria</h1>
-    <div class="grid grid-cols-12 grid-rows-2 mt-12 h-min">
-      <div class="col-start-1 col-end-5 relative h-96">
-        <img
-          class="w-full h-full absolute object-fill"
-          src="/Clara.png"
-          alt=""
-        />
-      </div>
-      <div class="col-start-5 col-end-12 relative h-30">
-        <img
-          class="w-min h-full absolute object-cover"
-          src="/Gustavo.png"
-          alt=""
-        />
-      </div>
-      <div class="col-start-1 col-end-7 relative h-30">
-        <img
-          class="w-full h-full absolute object-cover "
-          src="/Ana.png"
-          alt=""
-        />
-      </div>
-      <div class="col-start-7 col-end-12 relative h-96">
-        <img
-          class="w-full h-full absolute object-cover"
-          src="/Pedro.png"
-          alt=""
-        />
-      </div>
-    </div class="border-b-1 border-[#29565F]">
+    <h1 class="text-5xl font-bold text-primary px-4">Galeria</h1>
+    <div class="border-b border-primary"></div>
   </section>
-  <footer></footer>
-
+  <footer class="h-12  w-screen bg-primary"></footer>
 </Layout>
-<style>
-  .bg-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    max-height: 100vh;
-    width: 100vw;
-    object-fit: cover;
-    border-bottom: 1px solid #29565f;
-  }
-</style>
