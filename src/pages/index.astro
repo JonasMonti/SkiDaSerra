@@ -4,50 +4,50 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Ski da Serra">
-  <main class="min-h-screen flex flex-col justify-center max-w-xl gap-4">
-    <h1 class="text-6xl -mt-20 font-bold text-[#29565F]">From fun to pro.</h1>
-    <h3 class="text-[#29565F] font-medium text-lg">
+  <main class="flex min-h-screen max-w-xl flex-col justify-center gap-4">
+    <h1 class="-mt-20 text-6xl font-bold text-[#29565F]">From fun to pro.</h1>
+    <h3 class="text-lg font-medium text-[#29565F]">
       Descubra a emoção do <i>ski</i> na Serra da Estrela: Aprenda com os melhores
       instrutores na nossa escola de esqui de renome.
     </h3>
-    <div class="flex gap-4 font-medium mt-4">
+    <div class="mt-4 flex gap-4 font-medium">
       <a href="/reservar"><Button>Reservar</Button></a>
       <a href="/sobre-nos"><Button type="secondary">Sobre Nós</Button></a>
     </div>
 
     <!-- Não incluir alt text para imagens decorativas -->
     <img
-      class="min-h-screen absolute top-0 left-0 -z-10 max-h-screen w-screen object-cover border-b border-primary"
+      class="absolute left-0 top-0 -z-10 max-h-screen min-h-screen w-screen border-b border-primary object-cover"
       src="/Background.png"
       alt=""
     />
   </main>
-  <h1 class="text-4xl font-bold text-[#29565F] px-4">Os nossos clientes</h1>
-  <section class="grid grid-cols-12 grid-rows-2 mt-4 h-full">
-    <div class="col-start-1 col-end-5 relative">
+  <h1 class="px-4 text-4xl font-bold text-[#29565F]">Os nossos clientes</h1>
+  <section class="mt-4 grid h-full grid-cols-12 grid-rows-2">
+    <div class="relative col-start-1 col-end-5">
       <img
-        class="w-full h-full absolute object-cover"
+        class="absolute h-full w-full object-cover"
         src="/Clara.png"
         alt="Fotografia da Clara"
       />
     </div>
-    <div class="col-start-5 col-end-12 relative">
+    <div class="relative col-start-5 col-end-12">
       <img
-        class="w-full h-full absolute object-cover"
+        class="absolute h-full w-full object-cover"
         src="/Gustavo.png"
         alt="Fotografia do Gustavo"
       />
     </div>
-    <div class="col-start-1 col-end-7 relative">
+    <div class="relative col-start-1 col-end-7">
       <img
-        class="w-full h-full absolute object-cover"
+        class="absolute h-full w-full object-cover"
         src="/Ana.png"
         alt="Fotografia da Ana"
       />
     </div>
-    <div class="col-start-7 col-end-12 relative">
+    <div class="relative col-start-7 col-end-12">
       <img
-        class="w-full h-full absolute object-cover"
+        class="absolute h-full w-full object-cover"
         src="/Pedro.png"
         alt="Fotografia do Pedro"
       />
