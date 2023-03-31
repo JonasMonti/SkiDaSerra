@@ -1,14 +1,21 @@
 ---
 export interface Props {
-  type: "primary" | "secondary";
+  type?: "primary" | "secondary";
 }
 
-const props = Astro.props;
+// O tipo do botão vai ser primary por padrão,
+// mas se é possivel passar `type="secondary"`
+// para o alterar.
+const { type = "primary" } = Astro.props;
+
+// Classes tailwind para os estilos do botão, dependendo do tipo.
+const primaryStyles =
+  "bg-primary px-4 py-2 rounded-full text-white hover:opacity-80 transition-opacity";
+const secondaryStyles =
+  "px-4 py-2 rounded-full border-2 border-primary text-primary hover:opacity-80 transition-opacity font-medium";
 ---
 
-<button
-  class={props.type === "primary"
-    ? "bg-primary px-4 py-2 rounded-full text-white hover:opacity-80 transition-opacity"
-    : "px-4 py-2 rounded-full border-2 border-primary text-primary hover:opacity-80 transition-opacity font-medium"}
-  ><slot /></button
->
+<button class={type === "primary" ? primaryStyles : secondaryStyles}>
+  <!-- Texto / Conteúdo vai aparecer neste slot -->
+  <slot />
+</button>
