@@ -1,23 +1,23 @@
 ---
 import Button from "./Button.astro";
+
+const linkStyles = "hover:opacity-80 transition-opacity text-primary font-medium";
 ---
 
 <div class="flex w-full items-center justify-between">
-  <img src="/logo.png" alt="" />
+  <a class="hover:opacity-80 transition-opacity" href="/">
+    <img src="/logo.png" alt="Logótipo do Ski da Serra" />
+  </a>
 
   <div class="flex gap-4 items-center">
     <nav class="flex gap-4">
-      <a class="hover:opacity-80 transition-opacity" href="/precos">Preços</a>
-      <a class="hover:opacity-80 transition-opacity" href="/contactos"
-        >Contactos</a
-      >
-      <a class="hover:opacity-80 transition-opacity" href="/sobre-nos"
-        >Sobre Nós</a
-      >
-      <a class="hover:opacity-80 transition-opacity" href="/live-cams"
-        >Live Cams</a
-      >
+      <a class={linkStyles} href="/precos">Preços</a>
+      <a class={linkStyles} href="/contactos">Contactos</a>
+      <a class={linkStyles} href="/sobre-nos">Sobre Nós</a>
+      <a class={linkStyles} href="/live-cams">Live Cams</a>
     </nav>
-    <Button type="primary">Reservar</Button>
+    <a href="/reservar">
+      <Button>Reservar</Button>
+    </a>
   </div>
 </div>
