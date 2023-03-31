@@ -1,15 +1,16 @@
 ---
 import Button from "./Button.astro";
 
-const linkStyles = "hover:opacity-80 transition-opacity text-primary font-medium";
+const linkStyles =
+  "font-medium text-primary transition-opacity hover:opacity-80";
 ---
 
 <div class="flex w-full items-center justify-between">
-  <a class="hover:opacity-80 transition-opacity" href="/">
+  <a class="transition-opacity hover:opacity-80" href="/">
     <img src="/logo.png" alt="Logótipo do Ski da Serra" />
   </a>
 
-  <div class="flex gap-4 items-center">
+  <div class="flex items-center gap-4">
     <nav class="flex gap-4">
       <a class={linkStyles} href="/precos">Preços</a>
       <a class={linkStyles} href="/contactos">Contactos</a>
