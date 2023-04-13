@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contactos | Ski da Serra">
+  <main class="-mt-12 flex min-h-screen max-w-xl flex-col justify-center gap-4">
+    <h1 class="text-6xl font-bold text-primary">Contactos</h1>
+
+    <div class="flex justify-between">
+      <section class="flex max-w-xl flex-col gap-4 text-primary">
+        <div class="grid grid-cols-2 gap-4">
+          <h2 class="font-medium">Morada</h2>
+          <p>Estrada Nacional nº 339, Apartado 3326200-073 Covilhã, Portugal</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <h2 class="font-medium">E-mail</h2>
+          <a
+            class="underline transition-opacity hover:opacity-80"
+            href="mailto:estancia@skidaserra.pt">estancia@skidaserra.pt</a
+          >
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <h2 class="font-medium">Telefone</h2>
+          <a>(+351) 275 123 573</a>
+        </div>
+        <p class="mt-12 font-medium">Aberto das 09:00h às 17:00h</p>
+      </section>
+    </div>
+  </main>
+</Layout>

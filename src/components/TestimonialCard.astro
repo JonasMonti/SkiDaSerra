@@ -1,0 +1,29 @@
+---
+export interface Props {
+  name: string;
+  text: string;
+  image: string;
+  position: string;
+}
+
+const { name, text, image, position } = Astro.props;
+---
+
+<div class={`relative h-[448px] overflow-clip rounded-2xl outline-2 outline-white ${position}`}>
+  <div
+    class="absolute bottom-8 left-8 right-8 flex flex-col gap-4 md:bottom-12 md:left-12 md:right-12"
+  >
+    <h2 class="text-3xl font-medium">
+      {name}
+    </h2>
+    <p class="max-w-md text-xs opacity-80 md:text-base">
+      {text}
+    </p>
+  </div>
+
+  <img
+    class="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+    src={image}
+    alt=""
+  />
+</div>
