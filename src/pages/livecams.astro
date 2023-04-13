@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Welcome to Astro.">
+  <main class="min-h-screen flex flex-col justify-center items-center">
+    <h1 class="text-5xl font-bold text-[#29565F]">
+      Live Cam 
+    </h1>
+    <h2 class="text-[#29565F] font-bold text-2xl">
+      Assista a meteorologia em tempo real da Serra da Estrela!
+    </h2>
+    <br> <br/>
+    <iframe class="border-4 border-[#29565F] shadow-lg" src="https://player.twitch.tv/?channel=meteoestrela2022&parent=localhost" frameborder="0" allowfullscreen="true" scrolling="no" width="853" height="480"></iframe>
+    
+    <img class="bg-img" src="/bg-livecams.jpg" alt="" />
+  </main>
+</Layout>
+
+<style>
+  .bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    max-height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    border-bottom: 1px solid #29565f;
+  }
+</style>
