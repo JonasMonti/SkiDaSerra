@@ -1,12 +1,16 @@
 ---
 import Button from "../components/Button.astro";
+import Carousel from "../components/Carousel.svelte";
+import TestimonialCard from "../components/TestimonialCard.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Ski da Serra">
-  <main class="min-h-screen flex flex-col justify-center max-w-xl gap-4">
-    <h1 class="text-6xl -mt-20 font-bold text-primary">From fun to pro.</h1>
-    <h3 class="text-primary font-medium text-lg">
+  <main
+    class="flex min-h-screen max-w-xl flex-col items-center justify-center gap-4 text-center md:items-start md:text-left"
+  >
+    <h1 class="-mt-20 text-6xl font-bold text-primary">From fun to pro.</h1>
+    <h3 class="text-lg font-medium text-primary">
       Descubra a emoção do <i>ski</i> na Serra da Estrela: Aprenda com os melhores
       instrutores na nossa escola de esqui de renome.
     </h3>
@@ -22,59 +26,75 @@ import Layout from "../layouts/Layout.astro";
       alt=""
     />
   </main>
-  <section class="mx-4">
-    <h1 class="text-5xl font-bold text-primary px-4">Os nossos clientes</h1>
-    <div class="grid grid-cols-12 grid-rows-2 mt-12 h-min">
-      <div class="col-start-1 col-end-5 relative h-full">
-        <img class="w-full h-full object-cover" src="/Clara.png" alt="" />
-      </div>
-      <div class="col-start-5 col-end-12 relative h-30 w-90">
-        <img class="w-full h-full object-cover" src="/Gustavo.png" alt="" />
-      </div>
-      <div class="col-start-1 col-end-7 relative h-30">
-        <img class="w-full h-full object-cover" src="/Ana.png" alt="" />
-      </div>
-      <div class="col-start-7 col-end-12 relative h-96">
-        <img class="w-full h-full object-cover" src="/Pedro.png" alt="" />
-      </div>
+  <section>
+    <h1 class="text-5xl font-bold text-primary">Os nossos clientes</h1>
+    <div
+      class="mt-12 grid w-full grid-cols-1 grid-rows-4 gap-8 text-white md:grid-cols-12 md:grid-rows-2"
+    >
+      <TestimonialCard
+        name="Clara"
+        text="Eu não sabia nada sobre esqui antes de me inscrever na escola, mas depois de algumas aulas, sinto-me muito mais confiante na pista! Os instrutores são excelentes e muito pacientes com iniciantes como eu. Mal posso esperar para voltar para as montanhas!"
+        image="/testimonial/Clara.png"
+        position="md:col-start-1 md:col-end-5"
+      />
+      <TestimonialCard
+        name="Gustavo"
+        text="Eu tenho esquiado por anos, mas ainda me matriculei na escola de esqui para melhorar minha técnica. Fiquei muito impressionado com a qualidade do ensino e a experiência dos instrutores. Aprendi novas técnicas e agora sou um esquiador ainda melhor. Recomendo esta escola a todos os esquiadores que querem melhorar."
+        image="/testimonial/Gustavo.png"
+        position="md:col-start-5 md:col-end-13"
+      />
+      <TestimonialCard
+        name="Ana"
+        text="Eu tenho esquiado por anos, mas ainda me matriculei na escola de esqui para melhorar minha técnica. Fiquei muito impressionado com a qualidade do ensino e a experiência dos instrutores. Aprendi novas técnicas e agora sou um esquiador ainda melhor. Recomendo esta escola a todos os esquiadores que querem melhorar."
+        image="/testimonial/Ana.png"
+        position="md:col-start-1 md:col-end-7"
+      />
+      <TestimonialCard
+        name="Pedro"
+        text="Eu não sabia nada sobre esqui antes de me inscrever na escola, mas depois de algumas aulas, sinto-me muito mais confiante na pista! Os instrutores são excelentes e muito pacientes com iniciantes como eu. Mal posso esperar para voltar para as montanhas!"
+        image="/testimonial/Pedro.png"
+        position="md:col-start-7 md:col-end-13"
+      />
     </div>
-    <div class="border-b border-primary w-screen absolute left-0 overflow-clip"></div>
   </section>
-  <section class="mx-4">
-    <h1 class="text-5xl font-bold text-primary px-4">Preços</h1>
-    <div class="flex flex-col md:flex-row gap-4 mt-24 items-end">
+  <div class="my-12 h-[1px] w-full bg-primary"></div>
+  <section class="text-center">
+    <h1 class="text-5xl font-bold text-primary">Preços</h1>
+    <div class="mt-8 flex flex-col items-end gap-4 md:flex-row">
       <div
-        class="h-[calc(100vh-14rem)] border-2 border-primary bg-[#EFEFEF] rounded-3xl w-full py-4"
+        class="h-full w-full rounded-3xl border-2 border-primary bg-[#EFEFEF] py-4"
       >
       </div>
       <div
-        class="border-2 border-primary bg-[#EFEFEF] rounded-3xl w-full text-center overflow-clip"
+        class="w-full overflow-clip rounded-3xl border-2 border-primary bg-[#EFEFEF] text-center"
       >
         <div
-          class="h-16 font-medium bg-primary flex items-center justify-center text-white text-xl"
+          class="flex h-16 items-center justify-center bg-primary text-xl font-medium text-white"
         >
           <h3>Melhor Oferta</h3>
         </div>
         <div class="py-20">
-          <h1 class="text-4xl font-bold text-primary px-4">Aulas +</h1>
-          <h1 class="text-4xl font-bold text-primary px-4">Alojamento +</h1>
-          <h1 class="text-4xl font-bold text-primary px-4">Seguro</h1>
-          <h1 class="text-6xl font-bold text-primary py-16">
+          <h1 class="px-4 text-4xl font-bold text-primary">Aulas +</h1>
+          <h1 class="px-4 text-4xl font-bold text-primary">Alojamento +</h1>
+          <h1 class="px-4 text-4xl font-bold text-primary">Seguro</h1>
+          <h1 class="py-16 text-6xl font-bold text-primary">
             60
-            <span class="text-3xl -ml-4">€</span>
+            <span class="-ml-4 text-3xl">€</span>
           </h1>
           <a href="/reservar"><Button>Reservar</Button></a>
         </div>
       </div>
-      <div
-        class="h-[calc(100vh-14rem)] border-2 border-primary bg-[#EFEFEF] rounded-3xl w-full py-4"
-      >
-        </div>
+      <div class="w-full rounded-3xl border-2 border-primary bg-[#EFEFEF] py-4">
+      </div>
     </div>
   </section>
-  <section class="mx-4">
-    <h1 class="text-5xl font-bold text-primary px-4">Galeria</h1>
-    <div class="border-b border-primary"></div>
+  <section class="mx-4 flex w-full flex-col gap-12 py-12">
+    <h1 class="px-4 text-5xl font-bold text-primary">Galeria</h1>
+
+    <!-- 
+      A diretiva "client:visible" apenas renderiza o componente quando 
+      aparece no ecrã, o que melhora o desempenho da página.
+     -->
+    <Carousel client:visible />
   </section>
-  <footer class="h-12  w-screen bg-primary"></footer>
 </Layout>
