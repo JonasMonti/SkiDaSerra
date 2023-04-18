@@ -3,28 +3,43 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Contactos | Ski da Serra">
-  <main class="-mt-12 flex min-h-screen max-w-xl flex-col justify-center gap-4">
-    <h1 class="text-6xl font-bold text-primary">Contactos</h1>
+  <div class="md:flex md:justify-between w-full items-center">
+    <main
+      class=" flex min-h-screen w-full max-w-xl flex-col justify-center gap-4"
+    >
+      <h1 class="text-6xl font-bold text-primary">Contactos</h1>
 
-    <div class="flex justify-between">
-      <section class="flex max-w-xl flex-col gap-4 text-primary">
-        <div class="grid grid-cols-2 gap-4">
-          <h2 class="font-medium">Morada</h2>
-          <p>Estrada Nacional nº 339, Apartado 3326200-073 Covilhã, Portugal</p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <h2 class="font-medium">E-mail</h2>
-          <a
-            class="underline transition-opacity hover:opacity-80"
-            href="mailto:estancia@skidaserra.pt">estancia@skidaserra.pt</a
-          >
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <h2 class="font-medium">Telefone</h2>
-          <a>(+351) 275 123 573</a>
-        </div>
-        <p class="mt-12 font-medium">Aberto das 09:00h às 17:00h</p>
-      </section>
-    </div>
-  </main>
+      <div class="flex w-full justify-between">
+        <section class="flex max-w-xl flex-col gap-4 text-primary">
+          <div class="grid grid-cols-2 gap-4">
+            <h2 class="font-medium">Morada</h2>
+            <p>
+              Estrada Nacional nº 339, Apartado 3326200-073 Covilhã, Portugal
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <h2 class="font-medium">E-mail</h2>
+            <a
+              class="underline transition-opacity hover:opacity-80"
+              href="mailto:estancia@skidaserra.pt">estancia@skidaserra.pt</a
+            >
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <h2 class="font-medium">Telefone</h2>
+            <a>(+351) 275 123 573</a>
+          </div>
+          <p class="mt-12 font-medium">Aberto das 09:00h às 17:00h</p>
+        </section>
+      </div>
+    </main>
+
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12167.15798978104!2d-7.604142893743621!3d40.324829113178914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3d28a0408be839%3A0x1d00ebbed2102ce0!2sSerra%20da%20Estrela!5e0!3m2!1spt-PT!2spt!4v1681831680137!5m2!1spt-PT!2spt"
+      width="600"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
 </Layout>
