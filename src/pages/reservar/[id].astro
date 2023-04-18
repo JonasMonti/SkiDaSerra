@@ -1,0 +1,89 @@
+---
+import Button from "../../components/Button.astro";
+import Layout from "../../layouts/Layout.astro";
+import type { Pacote } from "../reservar.astro";
+
+const { id } = Astro.params;
+
+const pacote = (await fetch(`${import.meta.env.API_URL}/pacote/${id}`).then(
+  (r) => r.json()
+)) as Pacote;
+
+console.log(pacote);
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const nome = data.get("nome");
+    const morada = data.get("morada");
+    const numContribuinte = data.get("numContribuinte");
+
+    const reserva = await fetch(`${import.meta.env.API_URL}/pacote`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cliente: {
+          nome,
+          morada,
+          numContribuinte,
+        },
+      }),
+    }).then((r) => r.json());
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout title={`Reservar ${pacote.nome} | Ski da Serra`}>
+  <div class="flex min-h-screen items-center">
+    <form class="flex gap-8" method="POST">
+      <div class="flex flex-col items-start gap-4">
+        <h2 class="text-sm font-bold uppercase">
+          Pacote {pacote.nome}
+        </h2>
+
+        <h2 class="text-3xl font-medium text-primary">Dados do Cliente</h2>
+
+        <label class="flex flex-col gap-2">
+          Nome:
+          <input
+            class="max-w-sm rounded-md border px-2 py-1.5"
+            type="text"
+            name="nome"
+            required
+          />
+        </label>
+
+        <label class="flex flex-col gap-2">
+          Morada:
+          <input
+            class="rounded-md border px-2 py-1.5"
+            type="text"
+            name="morada"
+            required
+          />
+        </label>
+
+        <label class="flex flex-col gap-2">
+          Número de Contribuinte:
+          <input
+            class="rounded-md border px-2 py-1.5"
+            type="number"
+            name="numContribuinte"
+            required
+          />
+        </label>
+      </div>
+
+      <div class="mt-24">
+        <Button type="secondary">Submit</Button>
+      </div>
+    </form>
+  </div>
+</Layout>
