@@ -16,21 +16,20 @@ const { name, text, image, position } = Astro.props;
   <div
     class="absolute left-8 right-8 flex flex-col gap-4 md:bottom-12 md:left-12 md:right-12"
   >
-    <h2 class="px-4 text-5xl font-bold text-center text-[#BBC53A]">
+    <h2 class="px-4 text-center text-5xl font-bold ">
       {name}
     </h2>
-    <h1 class="py-16 text-6xl font-bold text-center">
-        {text}
-        <span class="-ml-4 text-3xl">€</span>
-      </h1>
-      <div class="text-center">
-        <a href="/reservar"><Button>Reservar</Button></a>
-      </div>
-    
+    <h1 class="py-16 text-center text-6xl font-bold">
+      {text}
+      <span class="-ml-4 text-3xl">€</span>
+    </h1>
+    <div class="text-center">
+      <a href="/reservar"><Button>Reservar</Button></a>
+    </div>
   </div>
 
   <img
-    class="absolute left-0 top-0 -z-10 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+    class="absolute filter brightness-50 left-0 top-0 -z-10 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
     src={image}
     alt=""
   />
