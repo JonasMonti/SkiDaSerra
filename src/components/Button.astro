@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  type?: "primary" | "secondary";
+  type?: "primary" | "secondary" | "tertiary";
 }
 
 // O tipo do botão vai ser primary por padrão,
@@ -13,9 +13,19 @@ const primaryStyles =
   "rounded-full bg-primary border-2 border-primary px-4 py-2 text-white transition-opacity hover:opacity-80";
 const secondaryStyles =
   "rounded-full border-2 border-primary px-4 py-2 font-medium text-primary transition-opacity hover:opacity-80";
+const tertiaryStyles =
+  "rounded-full border-2 border-white text-white px-4 py-2 font-medium transition-opacity hover:opacity-80";
 ---
 
-<button class={type === "primary" ? primaryStyles : secondaryStyles}>
+<button
+  class={type === "primary"
+    ? primaryStyles
+    : type === "secondary"
+    ? secondaryStyles
+    : type === "tertiary"
+    ? tertiaryStyles
+    : ""}
+>
   <!-- Texto / Conteúdo vai aparecer neste slot -->
   <slot />
 </button>
