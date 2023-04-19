@@ -1,7 +1,6 @@
 ---
-import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
-import CursosCard from "../components/CursosCard.astro";
+import CursoCard from "../components/CursoCard.astro";
 ---
 
 <Layout title="Preços | Ski da Serra" />
@@ -10,19 +9,19 @@ import CursosCard from "../components/CursosCard.astro";
     <div
       class="mt-2 grid w-full grid-cols-1 grid-rows-3 gap-8 text-white md:grid-cols-12 md:grid-rows-3"
     >
-      <CursosCard
+      <CursoCard
         name="Curso Basico"
         text="150"
         image="/01.png"
         position="md:col-start-1 md:col-end-5"
       />
-      <CursosCard
+      <CursoCard
         name="Curso Avançado"
         text="450"
         image="/02.png"
         position="md:col-start-5 md:col-end-9"
       />
-      <CursosCard
+      <CursoCard
         name="Curso Experiente"
         text="750"
         image="/03.png"
