@@ -2,4 +2,21 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Sobre Nós | Ski da Serra">Sobre Nós</Layout>
+<Layout title="Sobre Nós | Ski da Serra">
+    <div class="md:flex md:justify-between w-full items-center">
+        <main
+          class=" flex min-h-screen w-full max-w-xl flex-col justify-center gap-4"
+        >
+          <h1 class="text-6xl font-bold text-primary">Sobre Nós</h1>
+    
+          <div class="flex w-full justify-between">
+            <section class="flex max-w-xl flex-col gap-4 text-primary mt-12 font-medium text-lg">
+              <p class="mb-5">Somos uma equipa de especialistas dedicados a proporcionar as melhores experiências de ski aos nossos clientes mais exigentes.</p>
+              <p class="mb-5">Com anos de experiência e profundo conhecimento da indústria de esqui, oferecemos um serviço personalizado e de alta qualidade, desde o planejamento da viagem até a chegada às montanhas. </p>
+              <p class="mb-5">O nosso objetivo é criar experiências inesquecíveis para cada cliente, combinando nossa expertise com nossa paixão pela aventura.</p>
+            </section>
+          </div>
+        </main>
+        <img src="/sobrenos.png" alt="Sobre Nós"/>
+      </div>
+</Layout>
