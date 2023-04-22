@@ -1,0 +1,15 @@
+---
+import { ReservationTable } from "../../components/ReservationTable";
+import AdminLayout from "../../layouts/AdminLayout.astro";
+
+const data = await fetch(`${import.meta.env.API_URL}/clients`).then((res) =>
+  res.json()
+);
+---
+
+<AdminLayout title="Pagamentos">
+    <div class="flex justify-center w-full">
+        <ReservationTable client:load data={data} />
+
+    </div>
+</AdminLayout>
