@@ -1,0 +1,22 @@
+---
+
+const linkStyles =
+  "font-medium text-primary transition-opacity hover:opacity-80";
+---
+
+<div class="flex w-full items-center justify-between">
+  <a class="transition-opacity hover:opacity-80" href="/">
+    <img src="/logo.png" alt="Logótipo do Ski da Serra" />
+  </a>
+
+  <div class="flex items-center gap-4">
+    <nav class="flex gap-4">
+      <a class={linkStyles} href="/admin/clientes">Clientes</a>
+      <a class={linkStyles} href="/admin/pagamentos">Pagamentos</a>
+      <a class={linkStyles} href="/admin/cursos">Cursos</a>
+      <a class={linkStyles} href="/admin/aulas">Aulas</a>
+      <a class={linkStyles} href="/admin/acesso">Acesso Para Pista</a>
+      <a class={linkStyles} href="/admin/professores">Professores</a>
+    </nav>
+  </div>
+</div>
