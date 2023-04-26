@@ -1,22 +1,26 @@
 ---
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
+import type { Pacote } from "../types/index";
 
-export type Pacote = {
-  id?: string;
-  nome: string;
-  descricao: string;
-  preco: number;
-};
-
+/*
 const pacotes = (await fetch(`${import.meta.env.API_URL}/pacote`).then((r) =>
   r.json()
 )) as Pacote[];
+*/
+
+const response = await fetch(`${import.meta.env.API_URL}/pacotes`);
+const data = await response.json();
+const pacotes = data.data.map((e) => {
+  let pacote = e.attributes;
+  pacote.id = e.id;
+  return pacote;
+}) as Pacote[];
 ---
 
 <Layout title="Reservar | Ski da Serra">
   <main class="-mt-12 flex min-h-screen flex-col justify-center gap-4">
-    <h1 class="mb-8 text-6xl font-bold text-primary">Reservar Aulas</h1>
+    <h1 class="mb-8 text-6xl font-bold text-primary">Reservar</h1>
 
     <div class="flex max-h-96 flex-col gap-6 overflow-scroll overflow-x-hidden">
       {

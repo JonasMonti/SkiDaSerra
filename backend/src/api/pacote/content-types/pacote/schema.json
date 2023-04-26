@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pacotes",
+  "info": {
+    "singularName": "pacote",
+    "pluralName": "pacotes",
+    "displayName": "Pacote"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "preco": {
+      "type": "decimal"
+    }
+  }
+}

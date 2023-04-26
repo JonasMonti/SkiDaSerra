@@ -1,3 +1,10 @@
+export type Pacote = {
+  id?: string;
+  nome: string;
+  descricao: string;
+  preco: number;
+};
+
 /**
  * Model Client
  * 

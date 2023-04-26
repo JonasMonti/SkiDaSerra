@@ -1,15 +1,20 @@
 ---
 import Button from "../../components/Button.astro";
 import Layout from "../../layouts/Layout.astro";
-import type { Pacote } from "../reservar.astro";
+import type { Pacote } from "../../types/index";
 
 const { id } = Astro.params;
 
+/*
 const pacote = (await fetch(`${import.meta.env.API_URL}/pacote/${id}`).then(
   (r) => r.json()
 )) as Pacote;
+*/
 
-console.log(pacote);
+const response = await fetch(`${import.meta.env.API_URL}/pacotes/${id}`);
+const data = await response.json();
+const pacote = data.data.attributes as Pacote;
+pacote.id = data.data.id;
 
 if (Astro.request.method === "POST") {
   try {
@@ -18,17 +23,17 @@ if (Astro.request.method === "POST") {
     const morada = data.get("morada");
     const numContribuinte = data.get("numContribuinte");
 
-    const reserva = await fetch(`${import.meta.env.API_URL}/pacote`, {
+    const reserva = await fetch(`${import.meta.env.API_URL}/clientes`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        cliente: {
-          nome,
-          morada,
-          numContribuinte,
+        data: {
+          nome: nome,
+          morada: morada,
+          numContribuinte: numContribuinte,
         },
       }),
     }).then((r) => r.json());
