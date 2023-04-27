@@ -1,36 +1,45 @@
 ---
 export interface Props {
   name: string;
-  text: string;
+  price: number;
   image: string;
-  position: string;
+  description: string;
+  id: string;
 }
 import Button from "../components/Button.astro";
+import { formatCurrency } from "../util/formatCurrency";
 
-const { name, text, image, position } = Astro.props;
+const { name, price, image, description, id } = Astro.props;
 ---
 
 <div
-  class={`group relative h-[448px] overflow-clip rounded-2xl outline-2 outline-white ${position}`}
+  class={`group relative h-[448px] shadow-lg overflow-clip rounded-2xl outline-2 outline-white`}
 >
   <div
     class="absolute left-8 right-8 flex flex-col gap-4 md:bottom-12 md:left-12 md:right-12"
   >
-    <h2 class="px-4 text-center text-5xl font-bold ">
+    <h2 class="px-4 text-center text-5xl font-bold">
       {name}
     </h2>
     <h1 class="py-16 text-center text-6xl font-bold">
-      {text}
-      <span class="-ml-4 text-3xl">€</span>
+      {formatCurrency(price)}
     </h1>
-    <div class="text-center">
-      <a href="/reservar"><Button>Reservar</Button></a>
+    <div class="z-20 text-center transition-transform group-hover:scale-105">
+      <a href={`/reservar?courseId=${id}`}
+        ><Button type={"tertiary"}>Reservar</Button></a
+      >
     </div>
   </div>
 
   <img
-    class="absolute filter brightness-50 left-0 top-0 -z-10 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+    class="absolute left-0 top-0 -z-10 h-full w-full object-cover brightness-50 filter transition-transform duration-300 ease-out group-hover:scale-110"
     src={image}
     alt=""
   />
+
+  <div
+    class="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center opacity-0 backdrop-blur-md backdrop-brightness-75 backdrop-filter transition-opacity group-hover:opacity-100"
+  >
+    <p class="pointer-events-none p-10 text-center text-xl">{description}</p>
+  </div>
 </div>

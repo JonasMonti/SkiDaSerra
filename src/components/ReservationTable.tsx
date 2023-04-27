@@ -4,44 +4,93 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import type { Reservation } from "../types";
+import { TableLink } from "./TableLink";
+import { formatCurrency } from "../util/formatCurrency";
 
-export const ReservationTable = (props: { data: Reservation[] }) => {
-  const columnHelper = createColumnHelper<Reservation>();
+type ReservationWithClientWithLessonWithSlopeAccess = Reservation & {
+  client: {
+    id: string;
+    name: string;
+  };
+  lessons: {
+    id: string;
+  }[];
+  slopeAccesses: {
+    id: string;
+  }[];
+};
 
-  type clientKeyType = keyof (typeof props.data)[0];
+export const ReservationTable = (props: {
+  data: ReservationWithClientWithLessonWithSlopeAccess[];
+}) => {
+  const columnHelper =
+    createColumnHelper<ReservationWithClientWithLessonWithSlopeAccess>();
 
-  const columns = Object.keys(props.data[0]).map((key) =>
-    columnHelper.accessor(key as clientKeyType, {
-      header: key,
-      footer: (info) => info.column.id,
-    })  
-  );
+  const defaultColumns = [
+    // Accessor Column
+    columnHelper.accessor("client.name", {
+      header: () => "Nome do Cliente",
+      cell: (val) => (
+        <TableLink
+          linkId={val.row.original.clientId}
+          text={val.cell.getValue()}
+          type={"client"}
+        />
+      ),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("serviceType", {
+      header: () => "Tipo de Serviço",
+      cell: (val) => (
+        <TableLink
+          linkId={
+            String(val.row.original.serviceType) === "SKI_LESSON"
+              ? val.row.original.lessons[0].id
+              : val.row.original.slopeAccesses[0].id
+          }
+          text={
+            String(val.row.original.serviceType) === "SKI_LESSON"
+              ? "Aula de Ski"
+              : "Acesso á Pista"
+          }
+          type={val.row.original.lessons[0] ? "ski-lesson" : "slope-access"}
+        />
+      ),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("totalPrice", {
+      header: () => "Total de Pagamento",
+      cell: (val) => formatCurrency(val.getValue()),
+      footer: (props) => props.column.id,
+    }),
+  ];
 
   const table = useReactTable({
     data: props.data,
-    columns,
+    columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
-    <table>
-      <thead className="w-12 bg-zinc-900 text-white   ">
+    <table className="w-full border-separate border-spacing-4 rounded-md border border-zinc-400 bg-zinc-50 text-left shadow-lg">
+      <thead className="">
         {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
+          <tr className="" key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
+              <th className="border-b border-zinc-300 pb-2" key={header.id}>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
               </th>
             ))}
           </tr>
         ))}
       </thead>
-      <tbody>
+      <tbody className="">
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id}>
             {row.getVisibleCells().map((cell) => (

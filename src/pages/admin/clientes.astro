@@ -1,13 +1,22 @@
 ---
 import { ClientTable } from "../../components/ClientTable";
 import AdminLayout from "../../layouts/AdminLayout.astro";
-import Layout from "../../layouts/Layout.astro";
 
-const data = await fetch(`${import.meta.env.API_URL}/clients`).then((res) =>
-  res.json()
-);
+const data = await fetch(`${import.meta.env.API_URL}/clients`)
+  .then((res) => res.json())
+  .catch((err) => console.log(err));
 ---
 
 <AdminLayout title="Clientes">
-  <ClientTable client:load data={data} />
+  <div class="flex flex-col items-center justify-center gap-4">
+    <h1 class="text-3xl font-medium text-primary">Clientes</h1>
+
+    {
+      data ? (
+        <ClientTable client:load data={data} />
+      ) : (
+        <span class="text-red-600">"Erro ao carregar dados"</span>
+      )
+    }
+  </div>
 </AdminLayout>

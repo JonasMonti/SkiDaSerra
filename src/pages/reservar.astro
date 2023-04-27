@@ -1,41 +1,44 @@
 ---
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
+import type { Course } from "../types";
+import { formatCurrency } from "../util/formatCurrency";
 
-export type Pacote = {
-  id?: string;
-  nome: string;
-  descricao: string;
-  preco: number;
-};
+const courseId = Astro.url.searchParams.get("courseId") || "";
 
-const pacotes = (await fetch(`${import.meta.env.API_URL}/pacote`).then((r) =>
-  r.json()
-)) as Pacote[];
+let course: Course | undefined;
+
+if (courseId) {
+  course = (await fetch(`${import.meta.env.API_URL}/course/${courseId}`).then(
+    (r) => r.json()
+  )) as Course;
+}
 ---
 
 <Layout title="Reservar | Ski da Serra">
-  <main class="-mt-12 flex min-h-screen flex-col justify-center gap-4">
-    <h1 class="mb-8 text-6xl font-bold text-primary">Reservar Aulas</h1>
+  <main class="-mt-12 flex min-h-screen items-center justify-between">
+    {
+      courseId && course && (
+        <>
+          <div class="flex flex-col gap-8">
+            <h1 class=" text-3xl">
+              Reservar <span class="font-medium">{course.title}</span>
+            </h1>
+            <h3 class="-mt-6 text-xl">{course.description}</h3>
 
-    <div class="flex max-h-96 flex-col gap-6 overflow-scroll overflow-x-hidden">
-      {
-        pacotes.map((pacote) => (
-          <div class="flex w-full items-center justify-between rounded-md border border-zinc-400 p-4 shadow">
-            <div>
-              <h2 class="text-primary pb-3 text-xl font-medium">
-                {pacote.nome}
-              </h2>
-              <p class="pt-3">{pacote.descricao}</p>
-            </div>
-            <div class="flex flex-col items-center gap-4">
-              <a href={`/reservar/${pacote.id}`}>
-                <Button type="secondary">Reservar</Button>
+            <div class="flex items-center gap-8">
+              <span class="text-primary text-3xl font-medium">
+                {formatCurrency(course.price)}
+              </span>
+
+              <a href={`/checkout?courseId=${course.id}`}>
+                <Button type={"secondary"}>Reservar este Curso</Button>
               </a>
             </div>
           </div>
-        ))
-      }
-    </div>
+          <img class="w-1/2 rounded-xl shadow-lg" src={course.image} alt="" />
+        </>
+      )
+    }
   </main>
 </Layout>
