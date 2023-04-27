@@ -8,6 +8,7 @@ module.exports = {
       },
       animation: {
         "move-in-right": "move-in-right-left-right 600ms ease-in-out",
+        "pop-in": "pop-in 600ms cubic-bezier(.24,-0.29,.9,1.24)",
       },
       keyframes: {
         "move-in-right-left-right": {
@@ -24,6 +25,14 @@ module.exports = {
             transform: "translateX(0) scale(1)",
           },
         },
+        "pop-in": {
+          "0%": {
+            transform: "scale(0)",
+          },
+          "100%": {
+            transform: "scale(1)",
+          },
+        }
       },
     },
   },

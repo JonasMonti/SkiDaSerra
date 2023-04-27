@@ -5,42 +5,59 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import type { Client } from "../types";
+import { TableLink } from "./TableLink";
 
 export const ClientTable = (props: { data: Client[] }) => {
   const columnHelper = createColumnHelper<Client>();
 
-  type clientKeyType = keyof (typeof props.data)[0];
-
-  const columns = Object.keys(props.data[0]).map((key) =>
-    columnHelper.accessor(key as clientKeyType, {
-      header: key,
-      footer: (info) => info.column.id,
-    })
-  );
+  const defaultColumns = [
+    // Accessor Column
+    columnHelper.accessor("name", {
+      header: () => "Nome do Cliente",
+      cell: (val) => (
+        <TableLink
+          linkId={val.row.original.id}
+          text={val.getValue()}
+          type="client"
+        />
+      ),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("address", {
+      header: () => "Morada",
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("taxId", {
+      header: () => "NIF",
+      footer: (props) => props.column.id,
+    }),
+  ];
 
   const table = useReactTable({
     data: props.data,
-    columns,
+    columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
-    <table>
-      <thead className="w-12 bg-zinc-900 text-white   ">
+    <table className="w-full border-separate border-spacing-4 rounded-md border border-zinc-400 bg-zinc-50 text-left shadow-lg">
+      <thead className="">
         {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
+          <tr className="" key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
+              <th className="border-b border-zinc-300 pb-2" key={header.id}>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
               </th>
             ))}
           </tr>
         ))}
       </thead>
-      <tbody>
+      <tbody className="">
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id}>
             {row.getVisibleCells().map((cell) => (

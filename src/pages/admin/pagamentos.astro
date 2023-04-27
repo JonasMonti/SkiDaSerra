@@ -2,14 +2,21 @@
 import { ReservationTable } from "../../components/ReservationTable";
 import AdminLayout from "../../layouts/AdminLayout.astro";
 
-const data = await fetch(`${import.meta.env.API_URL}/clients`).then((res) =>
-  res.json()
-);
+const data = await fetch(`${import.meta.env.API_URL}/reservations`)
+  .then((res) => res.json())
+  .catch((err) => console.log(err));
 ---
 
 <AdminLayout title="Pagamentos">
-    <div class="flex justify-center w-full">
-        <ReservationTable client:load data={data} />
+  <div class="flex flex-col items-center justify-center gap-4">
+    <h1 class="text-3xl font-medium text-primary">Reservas</h1>
 
-    </div>
+    {
+      data ? (
+        <ReservationTable client:load data={data} />
+      ) : (
+        <span class="text-red-600">"Erro ao carregar dados"</span>
+      )
+    }
+  </div>
 </AdminLayout>

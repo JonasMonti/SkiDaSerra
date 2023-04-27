@@ -1,0 +1,27 @@
+---
+import { CheckoutForm } from "../components/CheckoutForm";
+import Layout from "../layouts/Layout.astro";
+import type { Course } from "../types";
+
+const courseId = Astro.url.searchParams.get("courseId") || "";
+
+let course: Course | undefined;
+
+if (courseId) {
+  course = (await fetch(`${import.meta.env.API_URL}/course/${courseId}`).then(
+    (r) => r.json()
+  )) as Course;
+}
+---
+
+<Layout title="Reservar | Ski da Serra">
+  <main class="-mt-12 flex min-h-screen items-center justify-between">
+    {
+      courseId && course && (
+        <>
+          <CheckoutForm client:only="react" />
+        </>
+      )
+    }
+  </main>
+</Layout>
