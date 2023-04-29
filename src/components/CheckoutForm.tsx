@@ -12,9 +12,12 @@ const validationSchema = z.object({
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 const getClient = async (taxId: string) => {
-  const response = await fetch(`http://localhost:3001/client/tax-id/${taxId}`);
-  const data = await response.json();
-  return data;
+  const url = new URL(`${import.meta.env.API_URL}/api/client?`);
+  const params = { taxId };
+  url.search = new URLSearchParams(params).toString();
+
+  const response = await fetch(url);
+  return await response.json();
 };
 
 export const CheckoutForm = () => {
@@ -29,17 +32,11 @@ export const CheckoutForm = () => {
     resolver: zodResolver(validationSchema),
   });
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
     console.log(data);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(typeof e.target.value, e.target.value);
-
     if (e.target.value.length !== 9) return;
 
     setLoadingTaxId(true);
@@ -56,7 +53,6 @@ export const CheckoutForm = () => {
         setLoadingTaxId(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoadingTaxId(false);
       });
   };

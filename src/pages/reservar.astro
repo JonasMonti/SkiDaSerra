@@ -1,17 +1,19 @@
 ---
+import type { Course } from "@prisma/client";
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
-import type { Course } from "../types";
 import { formatCurrency } from "../util/formatCurrency";
 
-const courseId = Astro.url.searchParams.get("courseId") || "";
+const courseId = Astro.url.searchParams.get("courseId");
 
 let course: Course | undefined;
 
 if (courseId) {
-  course = (await fetch(`${import.meta.env.API_URL}/course/${courseId}`).then(
-    (r) => r.json()
-  )) as Course;
+  const url = new URL(`${import.meta.env.API_URL}/api/course?`);
+  const params = { id: courseId };
+  url.search = new URLSearchParams(params).toString();
+
+  course = await fetch(url).then((r) => r.json());
 }
 ---
 
@@ -28,7 +30,7 @@ if (courseId) {
 
             <div class="flex items-center gap-8">
               <span class="text-primary text-3xl font-medium">
-                {formatCurrency(course.price)}
+                {formatCurrency(Number(course.price))}
               </span>
 
               <a href={`/checkout?courseId=${course.id}`}>
@@ -40,5 +42,27 @@ if (courseId) {
         </>
       )
     }
+
+    {
+      !courseId && (
+        <div class="flex flex-col gap-8">
+          <h1 class=" text-3xl">
+            Reservar <span class="font-medium">Aulas</span>
+          </h1>
+          <h3 class="-mt-6 text-xl">Escolha o tipo de aula que deseja</h3>
+
+          <div class="flex flex-col gap-4">
+            <a href="/reservar/aulas?courseId=1">Aulas de Ski</a>
+            <a href="/reservar/aulas?courseId=2">Aulas de Snowboard</a>
+          </div>
+        </div>
+      )
+    }
+
+    <!-- <div class="flex flex-col gap-4">
+      <a href="/reservar/acesso-a-pista">Acesso á Pista</a>
+      <a href="/reservar/aulas">Aulas</a>
+      <a href="/reservar/equipamento">Equipamento de Ski</a>
+    </div> -->
   </main>
 </Layout>

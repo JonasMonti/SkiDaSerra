@@ -4,10 +4,10 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { Client } from "../types";
 import { TableLink } from "./TableLink";
+import type { Client } from "@prisma/client";
 
-export const ClientTable = (props: { data: Client[] }) => {
+export const ClientTable = (props: { clients: Client[] }) => {
   const columnHelper = createColumnHelper<Client>();
 
   const defaultColumns = [
@@ -34,7 +34,7 @@ export const ClientTable = (props: { data: Client[] }) => {
   ];
 
   const table = useReactTable({
-    data: props.data,
+    data: props.clients,
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
   });

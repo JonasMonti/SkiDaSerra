@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  password String
+  email    String
+}
+
+model Client {
+  id      String @id @default(uuid())
+  name    String
+  address String
+  taxId   Int    @unique
+
+  reservations Reservation[]
+}
+
+model Reservation {
+  id String @id @default(uuid())
+
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+
+  serviceType   ServiceType
+  lessons       Lesson[]
+  slopeAccesses SlopeAccess[]
+  courses       Course[]
+
+  totalPrice Decimal @db.Decimal(5, 2)
+
+  @@index([clientId])
+}
+
+enum ServiceType {
+  SLOPE_ACCESS
+  SKI_LESSON
+  COURSE
+}
+
+enum SlopeLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model Lesson {
+  id            String       @id @default(uuid())
+  slopeLevel    SlopeLevel
+  numStudents   Int
+  serviceDays   ServiceDay[]
+  teacherId     String
+  teacher       Teacher      @relation(fields: [teacherId], references: [id])
+  reservationId String?
+  reservation   Reservation? @relation(fields: [reservationId], references: [id])
+
+  @@index([teacherId])
+  @@index([reservationId])
+}
+
+model SlopeAccess {
+  id            String       @id @default(uuid())
+  slopeLevel    SlopeLevel
+  serviceDays   ServiceDay[]
+  reservationId String?
+  reservation   Reservation? @relation(fields: [reservationId], references: [id])
+
+  @@index([reservationId])
+}
+
+model Course {
+  id          String  @id @default(uuid())
+  image       String
+  title       String
+  description String
+  price       Decimal @db.Decimal(5, 2)
+
+  reservationId String?
+  reservation   Reservation? @relation(fields: [reservationId], references: [id])
+
+  @@index([reservationId])
+}
+
+model Teacher {
+  id      String   @id @default(uuid())
+  name    String
+  address String
+  taxId   String
+  lessons Lesson[]
+}
+
+model ServiceDay {
+  id            String       @id @default(uuid())
+  day           DateTime
+  timeOfDay     TimeOfDay
+  SlopeAccess   SlopeAccess? @relation(fields: [slopeAccessId], references: [id])
+  slopeAccessId String?
+  Lesson        Lesson?      @relation(fields: [lessonId], references: [id])
+  lessonId      String?
+
+  @@index([slopeAccessId])
+  @@index([lessonId])
+}
+
+enum TimeOfDay {
+  MORNING
+  AFTERNOON
+  ALL_DAY
+}

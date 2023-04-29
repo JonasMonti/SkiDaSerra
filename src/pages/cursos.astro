@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CursoCard from "../components/CursoCard.astro";
-import type { Course } from "../types";
+import type { Course } from "@prisma/client";
 
-const data: Course[] = await fetch(`${import.meta.env.API_URL}/courses`)
+const data: Course[] = await fetch(`${import.meta.env.API_URL}/api/course`)
   .then((res) => res.json())
   .catch((err) => console.log(err));
 ---
@@ -19,7 +19,7 @@ const data: Course[] = await fetch(`${import.meta.env.API_URL}/courses`)
           <CursoCard
             id={course.id}
             name={course.title}
-            price={course.price}
+            price={Number(course.price)}
             image={course.image}
             description={course.description}
           />

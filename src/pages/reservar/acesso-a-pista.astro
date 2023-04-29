@@ -1,0 +1,10 @@
+---
+import { CheckoutForm } from "../../components/CheckoutForm";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Reservar Acesso à Pista | Ski da Serra">
+  <main class="-mt-12 flex min-h-screen items-center justify-between">
+    <CheckoutForm client:only="react" />
+  </main>
+</Layout>

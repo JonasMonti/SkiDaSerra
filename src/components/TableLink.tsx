@@ -7,7 +7,7 @@ type TableLinkProps = {
 export const TableLink = (props: TableLinkProps) => {
   return (
     <a
-      href={`/admin/${props.type}/${props.linkId}`}
+      href={`/backoffice/${props.type}/${props.linkId}`}
       className="flex items-center gap-2 text-primary transition-opacity hover:opacity-80"
     >
       {props.text}
@@ -19,9 +19,9 @@ export const TableLink = (props: TableLinkProps) => {
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="h-4 w-4"
       >
         <line x1="7" x2="17" y1="17" y2="7"></line>

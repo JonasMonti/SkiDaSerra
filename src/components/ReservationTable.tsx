@@ -4,22 +4,10 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { Reservation } from "../types";
+
 import { TableLink } from "./TableLink";
 import { formatCurrency } from "../util/formatCurrency";
-
-type ReservationWithClientWithLessonWithSlopeAccess = Reservation & {
-  client: {
-    id: string;
-    name: string;
-  };
-  lessons: {
-    id: string;
-  }[];
-  slopeAccesses: {
-    id: string;
-  }[];
-};
+import type { ReservationWithClientWithLessonWithSlopeAccess } from "../types";
 
 export const ReservationTable = (props: {
   data: ReservationWithClientWithLessonWithSlopeAccess[];
@@ -61,7 +49,7 @@ export const ReservationTable = (props: {
     }),
     columnHelper.accessor("totalPrice", {
       header: () => "Total de Pagamento",
-      cell: (val) => formatCurrency(val.getValue()),
+      cell: (val) => formatCurrency(Number(val.getValue())),
       footer: (props) => props.column.id,
     }),
   ];

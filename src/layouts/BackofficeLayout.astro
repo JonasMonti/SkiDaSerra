@@ -19,13 +19,13 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="">
-    <div class="container mx-auto px-16 py-8">
-      <NavbarAdmin/>
-      <div class="p-12 "></div>
+    <div class="container mx-auto px-16 py-8 min-h-screen">
+      <NavbarAdmin />
+      <div class="p-12"></div>
       <slot />
     </div>
     <Footer />
-  </body> 
+  </body>
 </html>
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap");

@@ -1,22 +1,23 @@
 ---
+import type { Client } from "@prisma/client";
 import { ClientTable } from "../../components/ClientTable";
-import AdminLayout from "../../layouts/AdminLayout.astro";
+import BackofficeLayout from "../../layouts/BackofficeLayout.astro";
 
-const data = await fetch(`${import.meta.env.API_URL}/clients`)
+const clients: Client[] = await fetch(`${import.meta.env.API_URL}/api/client`)
   .then((res) => res.json())
   .catch((err) => console.log(err));
 ---
 
-<AdminLayout title="Clientes">
+<BackofficeLayout title="Clientes">
   <div class="flex flex-col items-center justify-center gap-4">
     <h1 class="text-3xl font-medium text-primary">Clientes</h1>
 
     {
-      data ? (
-        <ClientTable client:load data={data} />
+      clients ? (
+        <ClientTable client:load clients={clients} />
       ) : (
         <span class="text-red-600">"Erro ao carregar dados"</span>
       )
     }
   </div>
-</AdminLayout>
+</BackofficeLayout>

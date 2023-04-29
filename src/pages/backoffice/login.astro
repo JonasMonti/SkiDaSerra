@@ -1,0 +1,78 @@
+---
+Astro.cookies.get("token") && Astro.redirect("/backoffice");
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const username = data.get("username");
+    const password = data.get("password");
+
+    const res = await fetch(`${import.meta.env.API_URL}/auth/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!res.ok) throw new Error("Erro ao fazer login");
+
+    Astro.cookies.set("token", await res.json());
+    Astro.redirect("/backoffice");
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Login</title>
+  </head>
+  <body class="">
+    <div
+      class="container mx-auto flex h-screen items-center justify-center px-16 py-8"
+    >
+      <form method="POST" class="flex w-96 flex-col items-center gap-4">
+        <h1 class="mb-4 text-3xl font-medium text-primary">Login</h1>
+
+        <label class="flex w-full flex-col gap-1" for="username">
+          <span class="font-medium">Nome de Utilizador</span>
+          <input
+            required
+            id="username"
+            name="username"
+            type="text"
+            class="rounded-md border border-gray-300 p-2"
+          />
+        </label>
+
+        <label class="flex w-full flex-col gap-1" for="password">
+          <span class="font-medium">Palavra-passe</span>
+          <input
+            required
+            id="password"
+            name="password"
+            type="password"
+            class="rounded-md border border-gray-300 p-2"
+          />
+        </label>
+
+        <button class="mt-2 w-full rounded-md bg-primary py-2.5 text-white"
+          >Entrar</button
+        >
+
+        <a href="/backoffice/signup" class="text-primary"
+          >Não tem conta? Registe-se</a
+        >
+      </form>
+    </div>
+  </body>
+</html>

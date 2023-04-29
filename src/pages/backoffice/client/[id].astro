@@ -1,0 +1,23 @@
+---
+import type { Client } from "@prisma/client";
+import BackofficeLayout from "../../../layouts/BackofficeLayout.astro";
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect("/backoffice/clients");
+}
+
+const url = new URL(`${import.meta.env.API_URL}/api/client?`);
+const params = { id };
+url.search = new URLSearchParams(params).toString();
+
+const client: Client = await fetch(url).then((r) => r.json());
+---
+
+<BackofficeLayout title={`Cliente - ${client.name}`}>
+  <div class="flex h-full w-full flex-col items-center justify-center">
+    <h1 class="text-center text-2xl font-bold">Cliente</h1>
+    <h2>{client.name}</h2>
+  </div>
+</BackofficeLayout>
