@@ -4,17 +4,28 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { Course, Reservation } from "../types";
-
-type CourseWithReservations = Course & { reservations: Reservation[] };
-
+import type { CourseWithReservations } from "../types";
+import { formatCurrency } from "../util/formatCurrency";
 export const CourseTable = (props: { data: CourseWithReservations[] }) => {
   const columnHelper = createColumnHelper<CourseWithReservations>();
 
   const defaultColumns = [
     // Accessor Column
     columnHelper.accessor("title", {
-      header: () => "Nome do Cliente",
+      header: () => "Nivel do Curso",
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("image", {
+      header: () => "Imagem",
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("description", {
+      header: () => "Descrição",
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("price", {
+      header: () => "Preço",
+      cell: (props) => formatCurrency(Number(props.getValue())),
       footer: (props) => props.column.id,
     }),
   ];

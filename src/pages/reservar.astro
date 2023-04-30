@@ -29,7 +29,7 @@ if (courseId) {
             <h3 class="-mt-6 text-xl">{course.description}</h3>
 
             <div class="flex items-center gap-8">
-              <span class="text-primary text-3xl font-medium">
+              <span class="text-3xl font-medium text-primary">
                 {formatCurrency(Number(course.price))}
               </span>
 
@@ -49,11 +49,11 @@ if (courseId) {
           <h1 class=" text-3xl">
             Reservar <span class="font-medium">Aulas</span>
           </h1>
-          <h3 class="-mt-6 text-xl">Escolha o tipo de aula que deseja</h3>
 
           <div class="flex flex-col gap-4">
-            <a href="/reservar/aulas?courseId=1">Aulas de Ski</a>
-            <a href="/reservar/aulas?courseId=2">Aulas de Snowboard</a>
+            <a href="/reservar/aulas?courseId=1">Acesso à Pista</a>
+            <a href="/reservar/aulas?courseId=2">Aulas</a>
+            <a href="/reservar/aulas?courseId=2">Equipamento</a>
           </div>
         </div>
       )

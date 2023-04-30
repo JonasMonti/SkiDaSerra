@@ -1,4 +1,11 @@
-import type { Reservation, Lesson, SlopeAccess, Client, Course } from "@prisma/client";
+import type {
+  Reservation,
+  Lesson,
+  SlopeAccess,
+  Client,
+  Course,
+  Teacher,
+} from "@prisma/client";
 
 export type ReservationWithClientWithLessonWithSlopeAccess = Reservation & {
   lessons: Lesson[];
@@ -6,3 +13,10 @@ export type ReservationWithClientWithLessonWithSlopeAccess = Reservation & {
   client: Client;
   courses: Course[];
 };
+
+export type LessonWithTeacherWithReservation = Lesson & {
+  teacher: Teacher;
+  reservation: Reservation | null;
+};
+
+export type CourseWithReservations = Course & { reservations: Reservation[] };

@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import type { Teacher } from "../types";
+import type { Teacher } from "@prisma/client";
 export const TeacherTable = (props: { data: Teacher[] }) => {
   const columnHelper = createColumnHelper<Teacher>();
 
@@ -25,12 +25,12 @@ export const TeacherTable = (props: { data: Teacher[] }) => {
   });
 
   return (
-    <table>
-      <thead className="w-12 bg-zinc-900 text-white   ">
+    <table className="w-full border-separate border-spacing-4 rounded-md border border-zinc-400 bg-zinc-50 text-left shadow-lg">
+      <thead className="">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id}>
+              <th className="border-b border-zinc-300 pb-2" key={header.id}>
                 {flexRender(
                   header.column.columnDef.header,
                   header.getContext()

@@ -146,6 +146,8 @@ const postReservation = async (request: Request) => {
   };
 };
 
+//todo:implementar alterar
+
 // Course Methods
 
 const getByIdCourse = async (id: string) => {
@@ -188,6 +190,34 @@ const getAllCourse = async () => {
 
   return {
     body: JSON.stringify(courses),
+  };
+};
+
+const postCourseSchema = z.object({
+  image: z.string(),
+  title: z.string(),
+  description: z.string(),
+  price: z.number().positive(),
+  reservationId: z.string().uuid(),
+});
+
+const postCourse = async (request: Request) => {
+  const { description, image, price, reservationId, title } =
+    postCourseSchema.parse(request.body);
+
+  const course = await prisma.course.create({
+    data: {
+      description,
+      image,
+      price,
+      title,
+      reservationId,
+    },
+  });
+
+  return {
+    status: 201,
+    body: JSON.stringify(course),
   };
 };
 
@@ -260,6 +290,117 @@ const getAllClient = async () => {
   };
 };
 
+const postClientSchema = z.object({
+  name:z.string(),
+  address:z.string(),
+  taxId:z.number().int().positive()
+});
+
+const postClient = async (request: Request) => {
+  const {address,name,taxId} =
+    postClientSchema.parse(request.body);
+
+  const client = await prisma.client.create({
+    data: {
+      name,
+      address,
+      taxId
+    },
+  });
+
+  return {
+    status: 201,
+    body: JSON.stringify(client),
+  };
+};
+
+//Lessons Methods
+
+const getAllLessons = async () => {
+  const lessons = await prisma.lesson.findMany({
+    include: { teacher: true, reservation: true },
+  });
+
+  if (!lessons || !lessons.length) {
+    return {
+      status: 404,
+      body: JSON.stringify({
+        message: "No lessons found",
+      }),
+    };
+  }
+
+  return {
+    body: JSON.stringify(lessons),
+  };
+};
+
+const getByIdLesson = async (id: string) => {
+  const lesson = await prisma.lesson.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      reservation: true,
+      teacher: true,
+    },
+  });
+
+  if (!lesson) {
+    return {
+      status: 404,
+      body: JSON.stringify({
+        message: "Lesson not found",
+      }),
+    };
+  }
+
+  return {
+    body: JSON.stringify(lesson),
+  };
+};
+
+//Teachers Methods
+
+const getAllTeachers = async () => {
+  const teachers = await prisma.teacher.findMany({
+  });
+
+  if (!teachers || !teachers.length) {
+    return {
+      status: 404,
+      body: JSON.stringify({
+        message: "No lessons found",
+      }),
+    };
+  }
+
+  return {
+    body: JSON.stringify(teachers),
+  };
+};
+
+const getByIdTeacher = async (id: string) => {
+  const teacher = await prisma.teacher.findUnique({
+    where: {
+      id,
+    }
+  });
+
+  if (!teacher) {
+    return {
+      status: 404,
+      body: JSON.stringify({
+        message: "Teacher not found",
+      }),
+    };
+  }
+
+  return {
+    body: JSON.stringify(teacher),
+  };
+};
+
 export default {
   reservation: {
     getById: getByIdReservation,
@@ -269,10 +410,20 @@ export default {
   course: {
     getById: getByIdCourse,
     getAll: getAllCourse,
+    post: postCourse,
   },
   client: {
     getById: getByIdClient,
     getByTaxId: getByTaxIdClient,
     getAll: getAllClient,
+    post: postClient
   },
+  lesson: {
+    getAll: getAllLessons,
+    getById: getByIdLesson,
+  },
+  teacher: {
+    getAll: getAllTeachers,
+    getById: getByIdTeacher
+  }
 };
