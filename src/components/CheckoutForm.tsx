@@ -12,7 +12,7 @@ const validationSchema = z.object({
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 const getClient = async (taxId: string) => {
-  const url = new URL(`${import.meta.env.API_URL}/api/client?`);
+  const url = new URL(`${import.meta.env.PUBLIC_VERCEL_URL}/api/client?`);
   const params = { taxId };
   url.search = new URLSearchParams(params).toString();
 

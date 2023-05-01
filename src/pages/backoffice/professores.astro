@@ -4,7 +4,7 @@ import { TeacherTable } from "../../components/TeacherTable";
 import BackofficeLayout from "../../layouts/BackofficeLayout.astro";
 
 const teacher: Teacher[] = await fetch(
-  `${import.meta.env.API_URL}/api/teacher`
+  `${import.meta.env.PUBLIC_VERCEL_URL}/api/teacher`
 )
   .then((res) => res.json())
   .catch((err) => console.log(err));

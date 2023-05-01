@@ -1,3 +1,15 @@
 ---
-return Astro.redirect('/backoffice/pagamentos');
+import { getUser } from "../../util/firebase/getUser";
+const sessionCookie = Astro.cookies.get("session").value;
+
+if (!sessionCookie) {
+  return Astro.redirect("/backoffice/login");
+}
+
+const user = await getUser(sessionCookie);
+if (!user) {
+  return Astro.redirect("/backoffice/login");
+}
+
+return Astro.redirect("/backoffice/pagamentos");
 ---

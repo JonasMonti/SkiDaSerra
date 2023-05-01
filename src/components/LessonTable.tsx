@@ -12,8 +12,6 @@ import { formatCurrency } from "../util/formatCurrency";
 export const LessonTable = (props: {
   data: LessonWithTeacherWithReservation[];
 }) => {
-  console.log(props.data);
-
   const columnHelper = createColumnHelper<LessonWithTeacherWithReservation>();
 
   const defaultColumns = [

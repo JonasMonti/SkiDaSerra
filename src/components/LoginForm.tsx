@@ -1,39 +1,44 @@
 import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../util/firebase/client";
 
-export const SignUpForm = () => {
+export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const auth = getAuth(app);
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        const idToken = await userCredential.user.getIdToken();
 
-    if (!res.ok) {
-      const data = await res.json();
-      return data;
-    }
+        const res = await fetch("/api/auth/login", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        });
 
-    if (res.redirected) {
-      window.location.assign(res.url);
-    }
+        if (!res.ok) {
+          const data = await res.json();
+          return data;
+        }
 
-    // createUserWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
+        if (res.redirected) {
+          window.location.assign(res.url);
+        }
 
-    //     window.location.href = "/backoffice";
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     // ..
-    //   });
+        // window.location.href = "/backoffice";
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   };
 
   return (
@@ -41,9 +46,9 @@ export const SignUpForm = () => {
       onSubmit={(e) => handleLogin(e)}
       className="flex w-96 flex-col items-center gap-4"
     >
-      <h1 className="mb-4 text-3xl font-medium text-primary">Criar Conta</h1>
+      <h1 className="mb-4 text-3xl font-medium text-primary">Login</h1>
 
-      <label className="flex w-full flex-col gap-1" htmlFor="username">
+      <label className="flex w-full flex-col gap-1" htmlFor="email">
         <span className="font-medium">E-mail</span>
         <input
           onChange={(e) => setEmail(e.target.value)}

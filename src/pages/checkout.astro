@@ -9,7 +9,7 @@ if (!courseId) {
   return Astro.redirect("/reservar");
 }
 
-const url = new URL(`${import.meta.env.API_URL}/api/course?`);
+const url = new URL(`${import.meta.env.PUBLIC_VERCEL_URL}/api/course?`);
 const params = { id: courseId };
 url.search = new URLSearchParams(params).toString();
 
