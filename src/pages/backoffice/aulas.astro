@@ -1,0 +1,24 @@
+---
+import type { Lesson } from "@prisma/client";
+import { LessonTable } from "../../components/LessonTable";
+import BackofficeLayout from "../../layouts/BackofficeLayout.astro";
+import type { LessonWithTeacherWithReservation } from "../../types";
+
+const lessons: LessonWithTeacherWithReservation[] = await fetch(`${import.meta.env.API_URL}/api/lesson`)
+  .then((res) => res.json())
+  .catch((err) => console.log(err));
+---
+
+<BackofficeLayout title="Aulas">
+  <div class="flex flex-col items-center justify-center gap-4">
+    <h1 class="text-3xl font-medium text-primary">Aulas</h1>
+
+    {
+      lessons ? (
+        <LessonTable client:load data={lessons} />
+      ) : (
+        <span class="text-red-600">"Erro ao carregar dados"</span>
+      )
+    }
+  </div>
+</BackofficeLayout>

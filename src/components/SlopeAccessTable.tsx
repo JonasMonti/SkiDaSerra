@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import type { SlopeAccess } from "../types";
+import type { SlopeAccess } from "@prisma/client";
 
 export const SlopeAccessTable = (props: { data: SlopeAccess[] }) => {
   const columnHelper = createColumnHelper<SlopeAccess>();
