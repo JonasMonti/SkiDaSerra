@@ -14,7 +14,6 @@ export const LoginForm = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
-        const user = userCredential.user;
         const idToken = await userCredential.user.getIdToken();
 
         const res = await fetch("/api/auth/login", {
