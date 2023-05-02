@@ -2,10 +2,9 @@
 import type { Teacher } from "@prisma/client";
 import { TeacherTable } from "../../components/TeacherTable";
 import BackofficeLayout from "../../layouts/BackofficeLayout.astro";
+import { apiURL } from "../../config";
 
-const teacher: Teacher[] = await fetch(
-  `${import.meta.env.PUBLIC_VERCEL_URL}/api/teacher`
-)
+const teacher: Teacher[] = await fetch(`${apiURL}/api/teacher`)
   .then((res) => res.json())
   .catch((err) => console.log(err));
 ---

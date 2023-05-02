@@ -3,10 +3,9 @@ import type { Course } from "@prisma/client";
 import type { CourseWithReservations } from "../../types";
 import { CourseTable } from "../../components/CourseTable";
 import BackofficeLayout from "../../layouts/BackofficeLayout.astro";
+import { apiURL } from "../../config";
 
-const courses: CourseWithReservations[] = await fetch(
-  `${import.meta.env.PUBLIC_VERCEL_URL}/api/course`
-)
+const courses: CourseWithReservations[] = await fetch(`${apiURL}/api/course`)
   .then((res) => res.json())
   .catch((err) => console.log(err));
 ---

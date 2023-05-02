@@ -2,6 +2,7 @@
 import type { Course } from "@prisma/client";
 import { CheckoutForm } from "../components/CheckoutForm";
 import Layout from "../layouts/Layout.astro";
+import { apiURL } from "../config";
 
 const courseId = Astro.url.searchParams.get("courseId");
 
@@ -9,7 +10,7 @@ if (!courseId) {
   return Astro.redirect("/reservar");
 }
 
-const url = new URL(`${import.meta.env.PUBLIC_VERCEL_URL}/api/course?`);
+const url = new URL(`${apiURL}/api/course?`);
 const params = { id: courseId };
 url.search = new URLSearchParams(params).toString();
 

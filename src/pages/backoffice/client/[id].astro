@@ -1,6 +1,7 @@
 ---
 import type { Client } from "@prisma/client";
 import BackofficeLayout from "../../../layouts/BackofficeLayout.astro";
+import { apiURL } from "../../../config";
 
 const { id } = Astro.params;
 
@@ -8,7 +9,7 @@ if (!id) {
   return Astro.redirect("/backoffice/clients");
 }
 
-const url = new URL(`${import.meta.env.PUBLIC_VERCEL_URL}/api/client?`);
+const url = new URL(`${apiURL}/api/client?`);
 const params = { id };
 url.search = new URLSearchParams(params).toString();
 

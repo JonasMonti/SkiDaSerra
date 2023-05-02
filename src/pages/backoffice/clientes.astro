@@ -2,8 +2,9 @@
 import type { Client } from "@prisma/client";
 import { ClientTable } from "../../components/ClientTable";
 import BackofficeLayout from "../../layouts/BackofficeLayout.astro";
+import { apiURL } from "../../config";
 
-const clients: Client[] = await fetch(`${import.meta.env.PUBLIC_VERCEL_URL}/api/client`)
+const clients: Client[] = await fetch(`${apiURL}/api/client`)
   .then((res) => res.json())
   .catch((err) => console.log(err));
 ---

@@ -1,9 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CursoCard from "../components/CursoCard.astro";
-import type {Course} from "@prisma/client";
+import type { Course } from "@prisma/client";
+import { apiURL } from "../config";
 
-const data: Course[] = await fetch(`${import.meta.env.PUBLIC_VERCEL_URL}/api/course`)
+const data: Course[] = await fetch(`${apiURL}/api/course`)
   .then((res) => res.json())
   .catch((err) => console.log(err));
 ---

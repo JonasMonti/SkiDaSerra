@@ -3,13 +3,14 @@ import type { Course } from "@prisma/client";
 import Button from "../components/Button.astro";
 import Layout from "../layouts/Layout.astro";
 import { formatCurrency } from "../util/formatCurrency";
+import { apiURL } from "../config";
 
 const courseId = Astro.url.searchParams.get("courseId");
 
 let course: Course | undefined;
 
 if (courseId) {
-  const url = new URL(`${import.meta.env.PUBLIC_VERCEL_URL}/api/course?`);
+  const url = new URL(`${apiURL}/api/course?`);
   const params = { id: courseId };
   url.search = new URLSearchParams(params).toString();
 
@@ -29,7 +30,7 @@ if (courseId) {
             <h3 class="-mt-6 text-xl">{course.description}</h3>
 
             <div class="flex items-center gap-8">
-              <span class="text-3xl font-medium text-primary">
+              <span class="text-primary text-3xl font-medium">
                 {formatCurrency(Number(course.price))}
               </span>
 
