@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { apiURL } from "../config";
 
 const validationSchema = z.object({
   taxId: z.coerce.number().min(100000000).max(999999999),
@@ -12,7 +13,7 @@ const validationSchema = z.object({
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 const getClient = async (taxId: string) => {
-  const url = new URL(`${import.meta.env.PUBLIC_VERCEL_URL}/api/client?`);
+  const url = new URL(`${apiURL}/api/client?`);
   const params = { taxId };
   url.search = new URLSearchParams(params).toString();
 
