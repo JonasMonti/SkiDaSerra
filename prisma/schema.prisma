@@ -96,7 +96,7 @@ model Teacher {
   id      String   @id @default(uuid())
   name    String
   address String
-  taxId   String
+  taxId   Int
   lessons Lesson[]
 }
 

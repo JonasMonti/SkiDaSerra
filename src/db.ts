@@ -54,6 +54,26 @@ const getAllReservation = async () => {
   };
 };
 
+const updateReservation = async (id: string, data: any) => {
+  const reservation = await prisma.reservation.update({
+    where: {
+      id,
+    },
+    data: {
+      clientId: data.clientId,
+      courses: data.courses,
+      lessons: data.lessons,
+      totalPrice: data.totalPrice,
+      serviceType: data.serviceType,
+      slopeAccesses: data.slopeAccesses,
+    },
+  });
+
+  return {
+    body: JSON.stringify(reservation),
+  };
+};
+
 const postReservationSchema = z.object({
   clientId: z.string().uuid(),
   serviceType: z.enum(["SKI_LESSON", "SLOPE_ACCESS", "COURSE"]),
@@ -193,6 +213,24 @@ const getAllCourse = async () => {
   };
 };
 
+const updateCourse = async (id: string, data: any) => {
+  const course = await prisma.course.update({
+    where: {
+      id,
+    },
+    data: {
+      description: data.description,
+      image: data.image,
+      price: data.price,
+      title: data.title,
+    }
+  });
+
+  return {
+    body: JSON.stringify(course),
+  };
+};
+
 const postCourseSchema = z.object({
   image: z.string(),
   title: z.string(),
@@ -290,21 +328,37 @@ const getAllClient = async () => {
   };
 };
 
+const updateClient = async (id: string, data: any) => {
+  const client = await prisma.client.update({
+    where: {
+      id,
+    },
+    data: {
+      address: data.address,
+      name: data.name,
+      taxId: data.taxId
+    },
+  });
+
+  return {
+    body: JSON.stringify(client),
+  };
+};
+
 const postClientSchema = z.object({
-  name:z.string(),
-  address:z.string(),
-  taxId:z.number().int().positive()
+  name: z.string(),
+  address: z.string(),
+  taxId: z.number().int().positive(),
 });
 
 const postClient = async (request: Request) => {
-  const {address,name,taxId} =
-    postClientSchema.parse(request.body);
+  const { address, name, taxId } = postClientSchema.parse(request.body);
 
   const client = await prisma.client.create({
     data: {
       name,
       address,
-      taxId
+      taxId,
     },
   });
 
@@ -360,11 +414,28 @@ const getByIdLesson = async (id: string) => {
   };
 };
 
+const updateLesson = async (id: string, data: any) => {
+  const lesson = await prisma.lesson.update({
+    where: {
+      id,
+    },
+    data: {
+      numStudents: data.numStudents,
+      teacher: data.teacher,
+      serviceDays: data.serviceDays,
+      slopeLevel: data.slopeLevel,
+    },
+  });
+
+  return {
+    body: JSON.stringify(lesson),
+  };
+};
+
 //Teachers Methods
 
 const getAllTeachers = async () => {
-  const teachers = await prisma.teacher.findMany({
-  });
+  const teachers = await prisma.teacher.findMany({});
 
   if (!teachers || !teachers.length) {
     return {
@@ -384,7 +455,7 @@ const getByIdTeacher = async (id: string) => {
   const teacher = await prisma.teacher.findUnique({
     where: {
       id,
-    }
+    },
   });
 
   if (!teacher) {
@@ -401,29 +472,75 @@ const getByIdTeacher = async (id: string) => {
   };
 };
 
+const updateTeacher = async (id: string, data: any) => {
+  const teacher = await prisma.teacher.update({
+    where: {
+      id,
+    },
+    data: {
+      name: data.name,
+      address: data.address,
+      taxId: data.taxId,
+    },
+  });
+
+  return {
+    body: JSON.stringify(teacher),
+  };
+};
+
+const postTeacherSchema = z.object({
+  name: z.string(),
+  address: z.string(),
+  taxId: z.number().int().positive(),
+});
+
+const postTeacher = async (request: Request) => {
+  const { address, name, taxId } = postTeacherSchema.parse(request.body);
+
+  const teacher = await prisma.teacher.create({
+    data: {
+      name,
+      address,
+      taxId,
+    },
+  });
+
+  return {
+    status: 201,
+    body: JSON.stringify(teacher),
+  };
+};
+
 export default {
   reservation: {
     getById: getByIdReservation,
     getAll: getAllReservation,
+    update: updateReservation,
     post: postReservation,
   },
   course: {
     getById: getByIdCourse,
     getAll: getAllCourse,
+    update: updateCourse,
     post: postCourse,
   },
   client: {
     getById: getByIdClient,
     getByTaxId: getByTaxIdClient,
     getAll: getAllClient,
-    post: postClient
+    update: updateClient,
+    post: postClient,
   },
   lesson: {
     getAll: getAllLessons,
     getById: getByIdLesson,
+    update: updateLesson,
   },
   teacher: {
     getAll: getAllTeachers,
-    getById: getByIdTeacher
-  }
+    getById: getByIdTeacher,
+    update: updateTeacher,
+    post: postTeacher,
+  },
 };

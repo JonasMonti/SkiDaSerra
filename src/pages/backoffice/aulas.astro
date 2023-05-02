@@ -5,7 +5,7 @@ import BackofficeLayout from "../../layouts/BackofficeLayout.astro";
 import type { LessonWithTeacherWithReservation } from "../../types";
 
 const lessons: LessonWithTeacherWithReservation[] = await fetch(
-  `${apiURL}/api/lessons`
+  `${apiURL}/api/lesson`
 )
   .then((res) => res.json())
   .catch((err) => console.log(err));
