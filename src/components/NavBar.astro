@@ -2,7 +2,7 @@
 import Button from "./Button.astro";
 
 const linkStyles =
-  "font-medium text-primary transition-opacity hover:opacity-80";
+  "font-medium md:text-primary transition-opacity hover:opacity-80";
 ---
 
 <div class="flex w-full items-center justify-between">
@@ -11,14 +11,45 @@ const linkStyles =
   </a>
 
   <div class="flex items-center gap-4">
-    <nav class="flex gap-4">
+    <nav
+      class="
+        absolute left-0 top-0 z-30 flex 
+        h-screen w-screen 
+        flex-col items-center justify-center
+        gap-4 bg-zinc-900 bg-opacity-70 text-xl 
+        text-white backdrop-blur-lg 
+        md:h-auto md:relative md:w-auto 
+        md:flex-row md:items-center md:text-lg md:bg-transparent md:backdrop-blur-none"
+    >
       <a class={linkStyles} href="/cursos">Cursos/Experiencias</a>
       <a class={linkStyles} href="/contactos">Contactos</a>
       <a class={linkStyles} href="/sobre-nos">Sobre Nós</a>
       <a class={linkStyles} href="/livecams">Live Cams</a>
+
+      <a href="/reservar" >
+        <Button type="primary">Reservar</Button>
+      </a>
     </nav>
-    <a href="/reservar">
-      <Button>Reservar</Button>
-    </a>
+
+    <button
+      id="menu-button"
+      class="hover:text-primary-dark text-2xl text-primary md:hidden"
+      aria-label="Abrir menu">+</button
+    >
   </div>
+
+  <script>
+    const menuButton = document.getElementById("menu-button");
+    const menu = document.querySelector("nav");
+
+    menuButton?.addEventListener("click", () => {
+      menu?.classList.toggle("hidden");
+    });
+
+    menu?.addEventListener("click", (e) => {
+      if (e.target === menu) {
+        menu.classList.add("hidden");
+      }
+    });
+  </script>
 </div>

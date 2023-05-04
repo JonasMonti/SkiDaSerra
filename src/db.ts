@@ -75,7 +75,7 @@ const updateReservation = async (id: string, data: any) => {
 };
 
 const postReservationSchema = z.object({
-  clientId: z.string().uuid(),
+  clientTaxId: z.number().min(100000000).max(999999999),
   serviceType: z.enum(["SKI_LESSON", "SLOPE_ACCESS", "COURSE"]),
   slopeLevel: z.enum(["BEGINNER", "INTERMEDIATE", "ADVANCED"]).optional(),
   serviceDays: z
@@ -93,8 +93,10 @@ const postReservationSchema = z.object({
 });
 
 const postReservation = async (request: Request) => {
-  const { serviceDays, serviceType, clientId, slopeLevel, numStudents } =
-    postReservationSchema.parse(request.body);
+  const body = await request.json();
+
+  const { serviceDays, serviceType, clientTaxId, slopeLevel, numStudents } =
+    postReservationSchema.parse(body);
 
   let lessonId: string | undefined;
 
@@ -153,7 +155,7 @@ const postReservation = async (request: Request) => {
       },
       client: {
         connect: {
-          id: clientId,
+          taxId: clientTaxId,
         },
       },
       totalPrice: 0,
@@ -223,7 +225,7 @@ const updateCourse = async (id: string, data: any) => {
       image: data.image,
       price: data.price,
       title: data.title,
-    }
+    },
   });
 
   return {
@@ -336,7 +338,7 @@ const updateClient = async (id: string, data: any) => {
     data: {
       address: data.address,
       name: data.name,
-      taxId: data.taxId
+      taxId: data.taxId,
     },
   });
 
@@ -352,7 +354,9 @@ const postClientSchema = z.object({
 });
 
 const postClient = async (request: Request) => {
-  const { address, name, taxId } = postClientSchema.parse(request.body);
+  const body = await request.json();
+
+  const { address, name, taxId } = postClientSchema.parse(body);
 
   const client = await prisma.client.create({
     data: {

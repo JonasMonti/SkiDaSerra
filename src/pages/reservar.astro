@@ -34,7 +34,7 @@ if (courseId) {
                 {formatCurrency(Number(course.price))}
               </span>
 
-              <a href={`/checkout?courseId=${course.id}`}>
+              <a href={`/checkout?type=course&courseId=${course.id}`}>
                 <Button type={"secondary"}>Reservar este Curso</Button>
               </a>
             </div>
@@ -52,9 +52,24 @@ if (courseId) {
           </h1>
 
           <div class="flex flex-col gap-4">
-            <a href="/reservar/aulas?courseId=1">Acesso à Pista</a>
-            <a href="/reservar/aulas?courseId=2">Aulas</a>
-            <a href="/reservar/aulas?courseId=2">Equipamento</a>
+            <a
+              class="text-primary text-xl transition-opacity hover:opacity-80"
+              href="/checkout?type=slopeaccess"
+            >
+              Acesso à Pista
+            </a>
+            <a
+              class="text-primary text-xl transition-opacity hover:opacity-80"
+              href="/checkout?type=lesson"
+            >
+              Aulas
+            </a>
+            <a
+              class="text-primary text-xl transition-opacity hover:opacity-80"
+              href="/checkout?type=equipment"
+            >
+              Equipamento
+            </a>
           </div>
         </div>
       )

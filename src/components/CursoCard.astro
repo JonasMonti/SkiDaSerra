@@ -13,10 +13,10 @@ const { name, price, image, description, id } = Astro.props;
 ---
 
 <div
-  class={`group relative h-[448px] shadow-lg overflow-clip rounded-2xl outline-2 outline-white`}
+  class="group flex-auto relative h-[448px] overflow-clip rounded-2xl shadow-lg outline-2 outline-white"
 >
   <div
-    class="absolute left-8 right-8 flex flex-col gap-4 md:bottom-12 md:left-12 md:right-12"
+    class="absolute left-8 right-8 flex flex-col gap-4 bottom-12 md:bottom-12 md:left-12 md:right-12"
   >
     <h2 class="px-4 text-center text-5xl font-bold">
       {name}
@@ -25,7 +25,7 @@ const { name, price, image, description, id } = Astro.props;
       {formatCurrency(price)}
     </h1>
     <div class="z-20 text-center transition-transform group-hover:scale-105">
-      <a href={`/reservar?courseId=${id}`}
+      <a href={`/reservar?type=course&courseId=${id}`}
         ><Button type={"tertiary"}>Reservar</Button></a
       >
     </div>
