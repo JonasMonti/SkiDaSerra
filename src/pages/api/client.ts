@@ -12,3 +12,6 @@ export const get: APIRoute = async ({ request }) => {
 
   return await db.client.getAll();
 };
+
+export const post: APIRoute = async ({ request }) =>
+  await db.client.post(request);

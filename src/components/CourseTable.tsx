@@ -6,17 +6,24 @@ import {
 } from "@tanstack/react-table";
 import type { CourseWithReservations } from "../types";
 import { formatCurrency } from "../util/formatCurrency";
+
 export const CourseTable = (props: { data: CourseWithReservations[] }) => {
   const columnHelper = createColumnHelper<CourseWithReservations>();
 
   const defaultColumns = [
-    // Accessor Column
     columnHelper.accessor("title", {
       header: () => "Nivel do Curso",
       footer: (props) => props.column.id,
     }),
     columnHelper.accessor("image", {
       header: () => "Imagem",
+      cell: (val) => (
+        <img
+          className="h-32 w-64 rounded-md object-cover shadow-lg"
+          src={val.getValue()}
+          alt={""}
+        />
+      ),
       footer: (props) => props.column.id,
     }),
     columnHelper.accessor("description", {

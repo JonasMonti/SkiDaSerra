@@ -1,29 +1,99 @@
 ---
-import type { Course } from "@prisma/client";
+import { Course, Lesson, ServiceType } from "@prisma/client";
 import { CheckoutForm } from "../components/CheckoutForm";
 import Layout from "../layouts/Layout.astro";
 import { apiURL } from "../config";
 
 const courseId = Astro.url.searchParams.get("courseId");
+const lessonId = Astro.url.searchParams.get("lessonId");
+const accessId = Astro.url.searchParams.get("accessId");
 
-if (!courseId) {
-  return Astro.redirect("/reservar");
+const type = Astro.url.searchParams.get("type") as
+  | "course"
+  | "lesson"
+  | "slopeaccess";
+
+let course: Course | undefined;
+let lesson: Lesson | undefined;
+
+switch (type) {
+  case "course":
+    {
+      if (!courseId) {
+        return Astro.redirect("/reservar");
+      }
+
+      const url = new URL(`${apiURL}/api/course?`);
+      const params = { id: courseId };
+      url.search = new URLSearchParams(params).toString();
+
+      course = await fetch(url).then((r) => r.json());
+    }
+    break;
+
+  case "lesson":
+    {
+      if (!lessonId) {
+        return Astro.redirect("/reservar");
+      }
+
+      const url = new URL(`${apiURL}/api/lesson?`);
+      const params = { id: lessonId };
+      url.search = new URLSearchParams(params).toString();
+
+      lesson = await fetch(url).then((r) => r.json());
+    }
+    break;
+
+  case "slopeaccess":
+    {
+    }
+    break;
+
+  default:
+    return Astro.redirect("/reservar");
 }
-
-const url = new URL(`${apiURL}/api/course?`);
-const params = { id: courseId };
-url.search = new URLSearchParams(params).toString();
-
-const course: Course = await fetch(url).then((r) => r.json());
 ---
 
 <Layout title="Reservar | Ski da Serra">
   <main class="-mt-12 flex min-h-screen items-center justify-between">
     {
-      courseId && course && (
-        <>
-          <CheckoutForm client:only="react" />
-        </>
+      type === "course" && course && (
+        <div class="w-1/2">
+          <h1 class="mb-4 text-4xl font-bold">Reservar curso</h1>
+          <p class="mb-4 text-gray-600">
+            Preencha o formulário abaixo para reservar o curso{" "}
+            <strong>{course.title}</strong>.
+          </p>
+          <CheckoutForm type={ServiceType.COURSE} course={course} />
+        </div>
+      )
+    }
+    {
+      type === "lesson" && lesson && (
+        <div class="w-1/2">
+          <h1 class="mb-4 text-4xl font-bold">Reservar aula</h1>
+          <p class="mb-4 text-gray-600">
+            Preencha o formulário abaixo para reservar a aula{" "}
+          </p>
+          <CheckoutForm client:only="react" type={ServiceType.SKI_LESSON} />
+        </div>
+      )
+    }
+    {
+      type === "slopeaccess" && (
+        <div class="w-full">
+          <h1 class="text-primary mb-4 text-4xl font-bold">
+            Reservar acesso à pista
+          </h1>
+          <p class="mb-4 text-gray-600">
+            Preencha o formulário abaixo para reservar o acesso à pista{" "}
+          </p>
+
+          <div class="mt-6 h-px w-full bg-zinc-100" />
+
+          <CheckoutForm client:only="react" type={ServiceType.SLOPE_ACCESS} />
+        </div>
       )
     }
   </main>
