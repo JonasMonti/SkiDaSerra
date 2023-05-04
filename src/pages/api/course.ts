@@ -9,3 +9,9 @@ export const get: APIRoute = async ({ request }) => {
 
   return await db.course.getAll();
 };
+
+export const update: APIRoute = async ({ request }) => {
+  const body = await request.json();
+
+  return await db.course.update(body.id, body.data);
+};
